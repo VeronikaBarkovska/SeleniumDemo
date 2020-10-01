@@ -60,20 +60,18 @@ public class RegistrationTest {
     @Test
     public void testCanNavigateToRegistrationPage(){
         mainPage =new MainPage(driver);
-        registrationPage = new RegistrationPage(driver);
         signInPage = mainPage.openSignInPage(driver);
         signInPage.enterEmailCrtFld(accountCreate.getEmail());
-        signInPage.submitEmailCrtFld();
+        registrationPage = signInPage.submitEmailCrtFld();
         Assert.assertTrue(registrationPage.isOpenRegistrPage());
     }
 
     @Test
     public void testFillRequiredFldInRegistrPageWithoutList(){
         mainPage =new MainPage(driver);
-        registrationPage = new RegistrationPage(driver);
         signInPage = mainPage.openSignInPage(driver);
         signInPage.enterEmailCrtFld(accountCreate.getEmail());
-        signInPage.submitEmailCrtFld();
+        registrationPage = signInPage.submitEmailCrtFld();
         registrationPage.fillAndSubmitRegistFormWithoutList(accountCreate);
         Assert.assertTrue("Verify that alert massage is shown", registrationPage.isShownAlertMessage());
     }
@@ -81,12 +79,10 @@ public class RegistrationTest {
     @Test
     public void testFillAllFldinRegistrPage(){
         mainPage =new MainPage(driver);
-        registrationPage = new RegistrationPage(driver);
         signInPage = mainPage.openSignInPage(driver);
-        profilePage = new ProfilePage(driver);
         signInPage.enterEmailCrtFld(accountCreate.getEmail());
-        signInPage.submitEmailCrtFld();
-        registrationPage.fillAllAndSubmitRegistForm(accountCreate);
+        registrationPage = signInPage.submitEmailCrtFld();
+        profilePage = registrationPage.fillAllAndSubmitRegistForm(accountCreate);
         Assert.assertTrue(profilePage.isOpenProfilePage());
 
     }

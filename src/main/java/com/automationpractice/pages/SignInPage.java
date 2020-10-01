@@ -1,18 +1,27 @@
 package com.automationpractice.pages;
 
 import com.automationpractice.account.AccountCreate;
+import com.automationpractice.utils.TestHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
 
 public class SignInPage {
 
     private WebDriver driver;
-    private By emailFld = By.id("email");
-    private By emailCreateFld = By.id("email_create");
-    private By emailCreateBtn = By.xpath("//i[@class = 'icon-user left']");
+
+    @FindBy(id = "email")
+    private WebElement emailFld;
+
+    @FindBy(id = "email_create")
+    private WebElement emailCreateFld;
+
+    @FindBy(xpath = "//i[@class = 'icon-user left']")
+    private WebElement emailCreateBtn;
+
     private By FirstNameRegistPageFld = By.xpath("//input[@id='customer_firstname']");
     private By signInLink = By.xpath("//a[@class = 'login']");
     private By contactUsLink = By.id("contact-link");
@@ -46,18 +55,18 @@ public class SignInPage {
 
     public SignInPage(WebDriver driver){
         this.driver = driver;
+        PageFactory.initElements(driver, this);
     }
     public boolean isOpenSignIn() {
-        WebElement emailFldElm = new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(emailFld));
-        return emailFldElm.isDisplayed();
+        return new TestHelper(driver).waitUntilElementWillBeClickable(emailFld).isDisplayed();
     }
 
     public void enterEmailCrtFld(String email) {
-        this.driver.findElement(emailCreateFld).sendKeys(email);
+        emailCreateFld.sendKeys(email);
     }
 
     public RegistrationPage submitEmailCrtFld() {
-        this.driver.findElement(emailCreateBtn).click();
+        emailCreateBtn.click();
         return new RegistrationPage(driver);
     }
 

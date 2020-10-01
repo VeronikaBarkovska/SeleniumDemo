@@ -1,74 +1,174 @@
 package com.automationpractice.pages;
 
+import com.automationpractice.utils.TestHelper;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.concurrent.TimeUnit;
+
 
 public class CartPage {
-    private By PlusQuantityBtn = By.xpath("(//i[@class='icon-plus'])[1]");
+
     private WebDriver driver;
-    private By totalProduct = By.xpath("//td[@id='total_product']");
-    private By totalShipping = By.xpath("//td[@id='total_shipping']");
-    private By totalPriceWithoutTax = By.xpath("//td[@id='total_price_without_tax']");
-    private By totalTax = By.xpath("//td[@id='total_tax']");
-    private By totalPrice = By.xpath("//td[@id='total_price_container']");
-    private By deleteBtn = By.xpath("//i[@class='icon-trash']");
+
+    @FindBy(xpath = "//td[@id='total_product']")
+    private WebElement totalProduct;
+
+    @FindBy(xpath = "//td[@id='total_shipping']")
+    private WebElement totalShipping;
+
+    @FindBy(xpath ="//td[@id='total_price_without_tax']")
+    private WebElement totalPriceWithoutTax;
+
+    @FindBy(xpath ="//td[@id='total_tax']")
+    private WebElement totalTax;
+
+    @FindBy(xpath ="//td[@id='total_price_container']")
+    private WebElement totalPrice;
+
+    @FindBy(xpath ="//i[@class='icon-trash']")
+    private WebElement deleteBtn;
+
     private By emptyCartMessage = By.xpath("//p[@class='alert alert-warning']");
+
+    @FindBy(xpath = "(//i[@class='icon-plus'])[1]")
+    private WebElement plusQuantityBtn;
+
+    @FindBy(xpath = "//tbody//child::tr")
+    private WebElement itemsBlock;
+
+    @FindBy(xpath = "//tbody//child::tr[1]")
+    private WebElement items1;
+
+    @FindBy(xpath = "//tbody//child::tr[last-1]")
+    private WebElement items2;
+
+
+    @FindBy(xpath = "(//span[@class='price'])[5]")
+    private WebElement totalItem1;
+
+    @FindBy(xpath = "(//span[@class='price'])[4]")
+    private WebElement totalSpecialItem1;
+
+    @FindBy(xpath = "(//span[@class='price'])[8]")
+    private WebElement totalItem2;
+
+    @FindBy(xpath = "(//span[@class='price'])[7]")
+    private WebElement totalSpecialItem2;
+
+    @FindBy(xpath = "//td[@id='total_product']")
+    private WebElement totalProducts;
+
+    @FindBy(xpath = "(//span[@class='old-price'])[1]")
+    private WebElement totalItemOldPrice1;
+
+    @FindBy(xpath = "//a[@class='button btn btn-default standard-checkout button-medium']")
+    private WebElement proceedToCheckoutBtn;
+
+    @FindBy(xpath = "(//span[@class = 'price-percent-reduction small'])[1]")
+    private WebElement saleText;
+
+    @FindBy(xpath = "//span[@class = 'price special-price']")
+    private WebElement newPrice;
 
 
 
     public CartPage(WebDriver driver){
         this.driver = driver;
+        PageFactory.initElements(driver, this);
     }
 
     public boolean isOpenedCart(){
-        WebElement PlusQuantityElm = new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(PlusQuantityBtn));
-        return PlusQuantityElm.isDisplayed();
+        return plusQuantityBtn.isDisplayed();
     }
     public void clickPlusQuantity(){
-        WebElement PlusQuantityElm= driver.findElement(PlusQuantityBtn);
-        PlusQuantityElm.click();
+        new TestHelper(driver).waitUntilElementWillBeClickable(plusQuantityBtn).click();
     }
 
-    public String checkTotalPrice() throws InterruptedException {
-        WebElement totalPriceElm = driver.findElement(totalPrice);
-        Thread.sleep(1000);
-        return totalPriceElm.getText();
+    public String checkTotalPrice() {
+        return totalPrice.getText();
     }
 
-    public String checkTotalProduct() throws InterruptedException {
-        WebElement totalProductElm = driver.findElement(totalProduct);
-        Thread.sleep(1000);
-        return totalProductElm.getText();
+    public String checkTotalProduct(){
+        return totalProduct.getText();
     }
-    public String checkTotalShipping() throws InterruptedException {
-        WebElement totalShippingElm = driver.findElement(totalShipping);
-        Thread.sleep(1000);
-        return totalShippingElm.getText();
+    public String checkTotalShipping()  {
+
+        return totalShipping.getText();
     }
 
-    public String checkTotalPriceWithoutTax() throws InterruptedException {
-    WebElement totalPriceWithoutTaxElm =driver.findElement(totalPriceWithoutTax);
-        Thread.sleep(1000);
-    return totalPriceWithoutTaxElm.getText();
+    public String checkTotalPriceWithoutTax(){
+    return totalPriceWithoutTax.getText();
     }
 
-    public String checkTotalTax() throws InterruptedException {
-        WebElement totalTaxElm = driver.findElement(totalTax);
-        Thread.sleep(1000);
-        return totalTaxElm.getText();
+    public String checkTotalTax(){
+        return totalTax.getText();
     }
     public void clickDeleteBtn(){
-        WebElement DeleteElm= driver.findElement(deleteBtn);
-        DeleteElm.click();
+        new TestHelper(driver).waitUntilElementWillBeClickable(deleteBtn).click();
     }
     public boolean isEmptyCart(){
-        WebElement DeleteMessageElm = new WebDriverWait(driver, 20).until(ExpectedConditions.presenceOfElementLocated(emptyCartMessage));
-        return DeleteMessageElm.isDisplayed();
+        WebElement deleteMessageElm = new WebDriverWait(driver, 20).until(ExpectedConditions.presenceOfElementLocated(emptyCartMessage));
+        return deleteMessageElm.isDisplayed();
+
+    }
+    public boolean checkItems(){
+        if(totalItem1.isDisplayed() && totalItem2.isDisplayed()){
+            return true;
+        }
+        return false;
+    }
+
+    public String checkTotalItem1(){
+        return totalItem1.getText();
+    }
+
+    public String checkTotalItem2(){
+        return totalItem2.getText();
+    }
+
+    public String checkTotalSpecialItem1(){
+        return totalSpecialItem1.getText();
+    }
+
+    public String checkTotalSpecialItem2(){
+        return totalSpecialItem2.getText();
+    }
+
+    public String checkTotalProducts(){
+        return totalProducts.getText();
+    }
+
+    public String checkAllTotalPrice(){
+        return checkTotalSpecialItem1()
+                +checkTotalSpecialItem2()
+                +checkTotalProducts();
+    }
+
+    public String checkSaleText(){
+        return saleText.getText();
+    }
+
+    public String checkOldPrice(){
+        return totalItemOldPrice1.getText();
+    }
+
+    public String checkNewPrice(){return newPrice.getText();}
+
+    public String checkSalePrice(){
+        return checkOldPrice()
+                +checkSaleText()
+                +checkNewPrice();
+    }
+
+    public AddressCartPage clickProceedToCheckout(){
+        new TestHelper(driver).waitUntilElementWillBeClickable(proceedToCheckoutBtn).click();
+        return new AddressCartPage(driver);
 
     }
 

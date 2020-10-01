@@ -1,7 +1,7 @@
 package com.automationpractice.pages;
 
-import com.automationpractice.account.AccountCreate;
 import com.automationpractice.info.InfoCreate;
+import com.automationpractice.utils.TestHelper;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -18,6 +18,7 @@ public class SearchTest {
     private InfoCreate infoCreate;
     private CartPage cartPage;
     private By ValueOfQuantity = By.xpath("//input[@name='quantity_2_7_0_0_hidden']");
+    private TestHelper testHelper;
 
 
     @Before
@@ -55,96 +56,97 @@ public class SearchTest {
     @Test
     public void testCartIsOpened(){
         mainPage = new MainPage(driver);
-        cartPage = new CartPage(driver);
         mainPage.enterAndSubmitSearch(infoCreate);
         mainPage.clickListView();
         mainPage.clickAddToCart();
-        mainPage.clickProceedToCheckout();
+        cartPage = mainPage.clickProceedToCheckout();
         Assert.assertTrue("Verify that cart is opened",cartPage.isOpenedCart());
     }
     @Test
-    public void testCartWorkQuantity() throws InterruptedException {
+    public void testCartWorkQuantity(){
         mainPage = new MainPage(driver);
-        cartPage = new CartPage(driver);
         mainPage.enterAndSubmitSearch(infoCreate);
         mainPage.clickListView();
         mainPage.clickAddToCart();
-        mainPage.clickProceedToCheckout();
+        cartPage = mainPage.clickProceedToCheckout();
         cartPage.clickPlusQuantity();
-        Thread.sleep(1000);
+        testHelper = new TestHelper(driver);
+        testHelper.waitForLoadTotalProduct(3,1000);
         Assert.assertEquals("2",driver.findElement(ValueOfQuantity).getAttribute("value"));
     }
     @Test
-    public void testCartTotalProduct() throws InterruptedException {
+    public void testCartTotalProduct() {
         mainPage = new MainPage(driver);
-        cartPage = new CartPage(driver);
         mainPage.enterAndSubmitSearch(infoCreate);
         mainPage.clickListView();
         mainPage.clickAddToCart();
-        mainPage.clickProceedToCheckout();
+        cartPage = mainPage.clickProceedToCheckout();
         cartPage.clickPlusQuantity();
+        testHelper = new TestHelper(driver);
+        testHelper.waitForLoadTotalProduct(3,1000);
         Assert.assertEquals("$54.00",cartPage.checkTotalProduct());
     }
     @Test
-    public void testCartTotalShipping() throws InterruptedException {
+    public void testCartTotalShipping(){
         mainPage = new MainPage(driver);
-        cartPage = new CartPage(driver);
         mainPage.enterAndSubmitSearch(infoCreate);
         mainPage.clickListView();
         mainPage.clickAddToCart();
-        mainPage.clickProceedToCheckout();
+        cartPage = mainPage.clickProceedToCheckout();
         cartPage.clickPlusQuantity();
+        testHelper = new TestHelper(driver);
+        testHelper.waitForLoadTotalShipping(3,1000);
         Assert.assertEquals("$2.00",cartPage.checkTotalShipping());
     }
     @Test
-    public void testCartTotalTax() throws InterruptedException {
+    public void testCartTotalTax(){
         mainPage = new MainPage(driver);
-        cartPage = new CartPage(driver);
         mainPage.enterAndSubmitSearch(infoCreate);
         mainPage.clickListView();
         mainPage.clickAddToCart();
-        mainPage.clickProceedToCheckout();
+        cartPage = mainPage.clickProceedToCheckout();
         cartPage.clickPlusQuantity();
+        testHelper = new TestHelper(driver);
+        testHelper.waitForLoadTotalTax(3,1000);
         Assert.assertEquals("$0.00",cartPage.checkTotalTax());
     }
     @Test
-    public void testCartTotalPriceWithoutTax() throws InterruptedException {
+    public void testCartTotalPriceWithoutTax(){
         mainPage = new MainPage(driver);
-        cartPage = new CartPage(driver);
         mainPage.enterAndSubmitSearch(infoCreate);
         mainPage.clickListView();
         mainPage.clickAddToCart();
-        mainPage.clickProceedToCheckout();
+        cartPage = mainPage.clickProceedToCheckout();
         cartPage.clickPlusQuantity();
+        testHelper = new TestHelper(driver);
+        testHelper.waitForLoadTotalPriceWithoutTax(3,1000);
         Assert.assertEquals("$56.00",cartPage.checkTotalPriceWithoutTax());
     }
     @Test
-    public void testCartTotalPrice() throws InterruptedException {
+    public void testCartTotalPrice() {
         mainPage = new MainPage(driver);
-        cartPage = new CartPage(driver);
         mainPage.enterAndSubmitSearch(infoCreate);
         mainPage.clickListView();
         mainPage.clickAddToCart();
-        mainPage.clickProceedToCheckout();
+        cartPage = mainPage.clickProceedToCheckout();
         cartPage.clickPlusQuantity();
+        testHelper = new TestHelper(driver);
+        testHelper.waitForLoadTotalPrice(3,1000);
         Assert.assertEquals("$56.00",cartPage.checkTotalPrice());
     }
     @Test
     public void testCartDelete() throws InterruptedException {
         mainPage = new MainPage(driver);
-        cartPage = new CartPage(driver);
         mainPage.enterAndSubmitSearch(infoCreate);
         mainPage.clickListView();
         mainPage.clickAddToCart();
-        mainPage.clickProceedToCheckout();
+        cartPage = mainPage.clickProceedToCheckout();
         cartPage.clickPlusQuantity();
         cartPage.clickDeleteBtn();
         Thread.sleep(2000);
         Assert.assertTrue("Verify that cart is empty",cartPage.isEmptyCart());
     }
-
-
-
+    
 
    @After
     public void cleanup(){
