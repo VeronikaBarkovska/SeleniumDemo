@@ -80,6 +80,11 @@ public class DressesPage {
         new TestHelper(driver).waitUntilElementWillBeClickable(addToCartBtn2).click();
     }
     public CartPage clickProceedToCheckout() {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         new TestHelper(driver).waitUntilElementWillBeClickable(proceedToCheckoutBtn).click();
         return new CartPage(driver);
     }

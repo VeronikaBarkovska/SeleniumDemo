@@ -1,6 +1,7 @@
 package com.automationpractice.pages;
 
 import com.automationpractice.account.AccountCreate;
+import com.automationpractice.utils.TestHelper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -193,6 +194,9 @@ public class RegistrationPage {
     public boolean isShownAlertMessage() {
         WebElement AlertMessageElm = new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(alertMessage));
         return AlertMessageElm.isDisplayed();
+    }
+    public boolean isRegistrationPageLoad(){
+        return new TestHelper(driver).isPageLoad();
     }
 
 

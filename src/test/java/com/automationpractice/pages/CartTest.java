@@ -4,9 +4,9 @@ import com.automationpractice.account.AccountCreate;
 import com.automationpractice.info.InfoCreate;
 import com.automationpractice.pages.enums.SortEnum;
 import com.automationpractice.utils.TestHelper;
-import org.junit.Assert;
-import org.junit.Test;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 import java.util.Random;
 
 
@@ -53,34 +53,35 @@ public class CartTest extends BaseTest{
                 .build();
         infoCreate = new InfoCreate().enterSortType(SortEnum.PRICELOWESTFIRST);
     }
-    @Test
-    public void testFillAllFldinRegistrPage(){
+    @Test(priority = 1)
+    public void testFillAllFldinRegistrPageBeforeCartTest(){
         mainPage =new MainPage(driver);
-        registrationPage = new RegistrationPage(driver);
+
         signInPage = mainPage.openSignInPage(driver);
         profilePage = new ProfilePage(driver);
         signInPage.enterEmailCrtFld(accountCreate.getEmail());
-        signInPage.submitEmailCrtFld();
+        registrationPage = signInPage.submitEmailCrtFld();
+        registrationPage.isRegistrationPageLoad();
         registrationPage.fillAllAndSubmitRegistForm(accountCreate);
         Assert.assertTrue(profilePage.isOpenProfilePage());
 
     }
 
-    @Test
+    @Test(priority = 2)
     public void testIsOpenDressesPage(){
         mainPage =new MainPage(driver);
-        registrationPage = new RegistrationPage(driver);
         signInPage = mainPage.openSignInPage(driver);
         profilePage = new ProfilePage(driver);
         signInPage.enterEmailCrtFld(accountCreate.getEmail());
-        signInPage.submitEmailCrtFld();
+        registrationPage = signInPage.submitEmailCrtFld();
+        registrationPage.isRegistrationPageLoad();
         registrationPage.fillAllAndSubmitRegistForm(accountCreate);
         profilePage.clickDressesTab();
         dressesPage = new DressesPage(driver);
-        Assert.assertTrue("Verify that Dresses Page is opened", dressesPage.isOpenDressesPage());
+        Assert.assertTrue(dressesPage.isOpenDressesPage(),"Verify that Dresses Page is opened");
     }
 
-    @Test
+    @Test(priority = 3)
     public void testSortByPrice(){
         mainPage =new MainPage(driver);
         signInPage = mainPage.openSignInPage(driver);
@@ -91,16 +92,17 @@ public class CartTest extends BaseTest{
         dressesPage.selectSortSearch(infoCreate.getSortType());
         testHelper = new TestHelper(driver);
         testHelper.waitForLoadScreen(5,5000);
-        Assert.assertEquals("Verify that Sort By is worked", "$16.40", dressesPage.getFirstItemPrice());
+        Assert.assertEquals("$16.40", dressesPage.getFirstItemPrice(),"Verify that Sort By is worked");
 
     }
 
-    @Test
+    @Test(priority = 4)
     public void testAddSpecialTwoItems(){
         mainPage =new MainPage(driver);
         signInPage = mainPage.openSignInPage(driver);
         signInPage.enterEmailCrtFld(accountCreate.getEmail());
         registrationPage = signInPage.submitEmailCrtFld();
+        registrationPage.isRegistrationPageLoad();
         profilePage = registrationPage.fillAllAndSubmitRegistForm(accountCreate);
         dressesPage = profilePage.clickDressesTab();
         dressesPage.clickListView();
@@ -111,9 +113,9 @@ public class CartTest extends BaseTest{
         dressesPage.clickContinueShopping();
         dressesPage.clickAddToCartBtn2();
         cartPage = dressesPage.clickProceedToCheckout();
-        Assert.assertTrue("Verify that two items in cart", cartPage.checkItems());
+        Assert.assertTrue(cartPage.checkItems(),"Verify that two items in cart");
     }
-    @Test
+    @Test(priority = 5)
     public void testAddSpecialTwoItemsTotal(){
         mainPage =new MainPage(driver);
         signInPage = mainPage.openSignInPage(driver);
@@ -137,7 +139,7 @@ public class CartTest extends BaseTest{
         Assert.assertEquals(expectedResult, actualResult);
     }
 
-    @Test
+    @Test(priority = 6)
     public void testSaleItem(){
         mainPage =new MainPage(driver);
         signInPage = mainPage.openSignInPage(driver);
@@ -159,12 +161,13 @@ public class CartTest extends BaseTest{
         String expectedResult = oldPrice + " "+ saleText+" "+newPrice;
         Assert.assertEquals(expectedResult, actualResult);
     }
-    @Test
+    @Test(priority = 7)
     public void testAddressBilling(){
         mainPage =new MainPage(driver);
         signInPage = mainPage.openSignInPage(driver);
         signInPage.enterEmailCrtFld(accountCreate.getEmail());
         registrationPage = signInPage.submitEmailCrtFld();
+        registrationPage.isRegistrationPageLoad();
         profilePage = registrationPage.fillAllAndSubmitRegistForm(accountCreate);
         dressesPage = profilePage.clickDressesTab();
         dressesPage.clickListView();
@@ -190,12 +193,13 @@ public class CartTest extends BaseTest{
         Assert.assertEquals(expectedResult, actualResult);
     }
 
-    @Test
+    @Test(priority = 8)
     public void testShippingCart(){
         mainPage =new MainPage(driver);
         signInPage = mainPage.openSignInPage(driver);
         signInPage.enterEmailCrtFld(accountCreate.getEmail());
         registrationPage = signInPage.submitEmailCrtFld();
+        registrationPage.isRegistrationPageLoad();
         profilePage = registrationPage.fillAllAndSubmitRegistForm(accountCreate);
         dressesPage = profilePage.clickDressesTab();
         dressesPage.clickListView();
@@ -208,15 +212,16 @@ public class CartTest extends BaseTest{
         addressCartPage = cartPage.clickProceedToCheckout();
         shippingCartPage = addressCartPage.clickProceedToCheckoutAddress();
         shippingCartPage.clickAgreeCheckbox();
-        Assert.assertTrue("Verify that Shipping Cart Page is opened", shippingCartPage.isOpenShippingCartPage());
+        Assert.assertTrue( shippingCartPage.isOpenShippingCartPage(),"Verify that Shipping Cart Page is opened");
     }
 
-    @Test
+    @Test(priority = 9)
     public void testPaymentCart(){
         mainPage =new MainPage(driver);
         signInPage = mainPage.openSignInPage(driver);
         signInPage.enterEmailCrtFld(accountCreate.getEmail());
         registrationPage = signInPage.submitEmailCrtFld();
+        registrationPage.isRegistrationPageLoad();
         profilePage = registrationPage.fillAllAndSubmitRegistForm(accountCreate);
         dressesPage = profilePage.clickDressesTab();
         dressesPage.clickListView();

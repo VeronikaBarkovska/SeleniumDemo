@@ -1,19 +1,14 @@
 package com.automationpractice.pages;
-
 import com.automationpractice.info.InfoCreate;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.BeforeMethod;
 
-import java.util.concurrent.TimeUnit;
+
+import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
 
 public class FilterTest extends BaseTest{
     private MainPage mainPage;
-    private WebDriver driver;
     private CartPage cartPage;
     private InfoCreate infoCreate;
     private WomenPage womenPage;
@@ -33,7 +28,7 @@ public class FilterTest extends BaseTest{
         womenPage.dragRightSlider();
         String actualResult = "$25.25 - $45.23";
         String expectedResult = womenPage.getRange();
-        Assert.assertEquals(actualResult,expectedResult);
+        Assert.assertEquals(expectedResult, actualResult);
 
     }
 

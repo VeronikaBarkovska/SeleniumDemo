@@ -2,20 +2,19 @@ package com.automationpractice.pages;
 
 import com.automationpractice.info.InfoCreate;
 import com.automationpractice.utils.TestHelper;
-import org.junit.Assert;
-import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 
 public class SearchTest extends BaseTest{
     private MainPage mainPage;
-    private WebDriver driver;
     private InfoCreate infoCreate;
     private CartPage cartPage;
     private By ValueOfQuantity = By.xpath("//input[@name='quantity_2_7_0_0_hidden']");
     private TestHelper testHelper;
+
 
 
     @BeforeMethod
@@ -27,7 +26,7 @@ public class SearchTest extends BaseTest{
     public void testCanSearchInMainPage(){
         mainPage = new MainPage(driver);
         mainPage.enterAndSubmitSearch(infoCreate);
-        Assert.assertTrue("Verify that search is worked",mainPage.isOpenedSearchResult());
+        Assert.assertTrue(mainPage.isOpenedSearchResult(),"Verify that search is worked");
     }
 
     @Test
@@ -35,7 +34,7 @@ public class SearchTest extends BaseTest{
         mainPage = new MainPage(driver);
         mainPage.enterAndSubmitSearch(infoCreate);
         mainPage.clickListView();
-        Assert.assertTrue("Verify that ListView is worked",mainPage.isShownAddToCartBtn());
+        Assert.assertTrue(mainPage.isShownAddToCartBtn(),"Verify that ListView is worked");
     }
 
     @Test
@@ -44,7 +43,7 @@ public class SearchTest extends BaseTest{
         mainPage.enterAndSubmitSearch(infoCreate);
         mainPage.clickListView();
         mainPage.clickAddToCart();
-        Assert.assertTrue("Verify that item is added",mainPage.isAddedItems());
+        Assert.assertTrue(mainPage.isAddedItems(),"Verify that item is added");
     }
     @Test
     public void testCartIsOpened(){
@@ -53,7 +52,7 @@ public class SearchTest extends BaseTest{
         mainPage.clickListView();
         mainPage.clickAddToCart();
         cartPage = mainPage.clickProceedToCheckout();
-        Assert.assertTrue("Verify that cart is opened",cartPage.isOpenedCart());
+        Assert.assertTrue(cartPage.isOpenedCart(),"Verify that cart is opened");
     }
     @Test
     public void testCartWorkQuantity(){
@@ -137,7 +136,7 @@ public class SearchTest extends BaseTest{
         cartPage.clickPlusQuantity();
         cartPage.clickDeleteBtn();
         Thread.sleep(2000);
-        Assert.assertTrue("Verify that cart is empty",cartPage.isEmptyCart());
+        Assert.assertTrue(cartPage.isEmptyCart(),"Verify that cart is empty");
     }
 
 }

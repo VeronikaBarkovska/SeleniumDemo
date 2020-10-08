@@ -15,15 +15,15 @@ public class SignInPageDataProvider {
                         .enterPassword("")
                         .build()},
                 {new AccountCreate()
-                        .enterEmail("veronikabark3535@gmailcom")
+                        .enterEmail("veronikabark353536@gmailcom")
                         .enterPassword("password")
                         .build()},
                 {new AccountCreate()
-                        .enterEmail("veronikabark3535gmail.com")
+                        .enterEmail("veronikabark353536gmail.com")
                         .enterPassword("12345678admin")
                         .build()},
                 {new AccountCreate()
-                        .enterEmail("veronika bark3535@gmail.com")
+                        .enterEmail("veronika bark353536@gmail.com")
                         .enterPassword("12345678aDMIN")
                         .build()},
                 {new AccountCreate()
@@ -31,7 +31,7 @@ public class SignInPageDataProvider {
                         .enterPassword("12345678Admin")
                         .build()},
                 {new AccountCreate()
-                        .enterEmail("veronikabark3535@")
+                        .enterEmail("veronikabark353536@")
                         .enterPassword("12345678ADMIN")
                         .build()}
         };

@@ -15,10 +15,10 @@ public class WomenPage {
     @FindBy(xpath = "//div[@class='ui-slider-range ui-widget-header ui-corner-all']")
     private WebElement rangePrice;
 
-    @FindBy(xpath = "(//a[@class='ui-slider-handle ui-state-default ui-corner-all'])[1]")
+    @FindBy(xpath = "(//div[@class='layered_slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all']/a)[1]")
     private WebElement rangePriceLeft;
 
-    @FindBy(xpath = "//a[@class='ui-slider-handle ui-state-default ui-corner-all']")
+    @FindBy(xpath = "(//div[@class='layered_slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all']/a)[2]")
     private WebElement rangePriceRight;
 
     @FindBy(xpath = "//span[@id = 'layered_price_range']")
@@ -58,13 +58,13 @@ public class WomenPage {
 
     public void dragLeftSlider() {
         Actions move = new Actions(driver);
-        move.moveToElement(rangePriceLeft).click().dragAndDropBy(new TestHelper(driver).waitUntilElementWillBeClickable(rangePriceLeft), 60, 0).click().build().perform();
+        move.moveToElement(rangePriceLeft).dragAndDropBy(new TestHelper(driver).waitUntilElementWillBeClickable(rangePriceLeft), 60, 0).click().build().perform();
 
     }
 
     public void dragRightSlider() {
         Actions move = new Actions(driver);
-        move.moveToElement(rangePriceRight).click().dragAndDropBy(new TestHelper(driver).waitUntilElementWillBeClickable(rangePriceRight), -49, 0).click().build().perform();
+        move.moveToElement(rangePriceRight).dragAndDropBy(new TestHelper(driver).waitUntilElementWillBeClickable(rangePriceRight), -49, 0).click().build().perform();
 
     }
 
@@ -95,6 +95,11 @@ public class WomenPage {
     }
 
     public CartPage clickProceedToCheckout() {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         new TestHelper(driver).waitUntilElementWillBeClickable(proceedToCheckoutBtn).click();
         return new CartPage(driver);
     }

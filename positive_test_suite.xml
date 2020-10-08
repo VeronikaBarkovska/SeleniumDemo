@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="BrowserTest">
+    <test name="RegistrationTest">
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="com.automationpractice.pages.RegistrationTest">
+                <methods>
+                    <exclude name="testFillRequiredFldInRegistrPageWithoutList" />
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="SignInTest">
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="com.automationpractice.pages.SignInTest">
+                <methods>
+                     <exclude name="testAlreadyRegistered" />
+                </methods>
+                </class>
+        </classes>
+    </test>
+
+    <test name="CartTest">
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="com.automationpractice.pages.CartTest">
+                <methods>
+                    <include name="testFillAllFldinRegistrPageBeforeCartTest" />
+                    <include name="testIsOpenDressesPage" />
+                    <include name="testSortByPrice" />
+                    <include name="testAddSpecialTwoItems" />
+                    <include name="testAddSpecialTwoItemsTotal" />
+                    <include name="testSaleItem" />
+                    <include name="testAddressBilling" />
+                    <include name="testShippingCart" />
+                    <include name="testPaymentCart" />
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="FilterTest">
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="com.automationpractice.pages.FilterTest" >
+                    <methods>
+                        <include name="testPriceSliderIsWorked" />
+                        <include name="testPriceFilterIsWorked" />
+                        <include name="testAddToItemsAfterFilter" />
+                        <include name="testCompareItemsWherePriceMore" />
+                        <include name="testDeleteItemsWherePriceMore" />
+                    </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="SearchTest">
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="com.automationpractice.pages.SearchTest">
+                <methods>
+                    <include name="testCanSearchInMainPage" />
+                    <include name="testCanSelectListView" />
+                    <include name="testCanAddToCart" />
+                    <include name="testCartIsOpened" />
+                    <include name="testCartWorkQuantity" />
+                    <include name="testCartTotalProduct" />
+                    <include name="testCartTotalShipping" />
+                    <include name="testCartTotalTax" />
+                    <include name="testCartTotalPriceWithoutTax" />
+                    <include name="testCartTotalPrice" />
+                    <include name="testCartDelete" />
+                </methods>
+
+            </class>
+        </classes>
+    </test>
+
+</suite>

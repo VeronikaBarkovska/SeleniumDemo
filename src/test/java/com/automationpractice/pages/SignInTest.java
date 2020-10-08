@@ -6,6 +6,8 @@ import com.automationpractice.dataproviders.SignInPageDataProvider;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.Random;
+
 
 public class SignInTest extends BaseTest{
     private MainPage mainPage;
@@ -13,12 +15,13 @@ public class SignInTest extends BaseTest{
     private SignInPage signInPage;
     private RegistrationPage registrationPage;
     private ProfilePage profilePage;
+    Random random = new Random();
 
 
     @BeforeMethod
     public void beforeMethod(){
         accountCreate = new AccountCreate()
-                .enterEmail("veronikabark3535@gmail.com")
+                .enterEmail("veronikabark"+random.nextInt()+"@gmail.com")
                 .enterFirstName("Veronika")
                 .enterLastName("Barkovska")
                 .enterPassword("12345678Admin")
@@ -44,7 +47,7 @@ public class SignInTest extends BaseTest{
     }
 
     @Test
-    public void testFillAllFldinRegistrPage(){
+    public void testFillAllFldinRegistrPageBeforeAlready(){
         mainPage =new MainPage(driver);
         signInPage = mainPage.openSignInPage(driver);
         signInPage.enterEmailCrtFld(accountCreate.getEmail());

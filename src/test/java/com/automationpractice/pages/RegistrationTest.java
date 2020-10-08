@@ -1,8 +1,10 @@
 package com.automationpractice.pages;
 
 import com.automationpractice.account.AccountCreate;
-import org.junit.*;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
 import java.util.Random;
 
 
@@ -46,7 +48,7 @@ public class RegistrationTest extends BaseTest{
     public void testCanNavigateToSignInPage(){
         mainPage = new MainPage(driver);
         signInPage = mainPage.openSignInPage(driver);
-        Assert.assertTrue("Verify that SignIn Page is opened", signInPage.isOpenSignIn());
+        Assert.assertTrue(signInPage.isOpenSignIn(),"Verify that SignIn Page is opened");
     }
 
     @Test
@@ -65,7 +67,7 @@ public class RegistrationTest extends BaseTest{
         signInPage.enterEmailCrtFld(accountCreate.getEmail());
         registrationPage = signInPage.submitEmailCrtFld();
         registrationPage.fillAndSubmitRegistFormWithoutList(accountCreate);
-        Assert.assertTrue("Verify that alert massage is shown", registrationPage.isShownAlertMessage());
+        Assert.assertTrue(registrationPage.isShownAlertMessage(), "Verify that alert massage is shown");
     }
 
     @Test
