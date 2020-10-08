@@ -17,6 +17,9 @@ public class ProfilePage {
     @FindBy(xpath = "(//a[@title = 'Dresses'])[2]")
     private WebElement dressesTab;
 
+    @FindBy (xpath = "//a[@class='logout']")
+    private WebElement signOutBtn;
+
 
     public ProfilePage(WebDriver driver){
         this.driver = driver;
@@ -31,6 +34,11 @@ public class ProfilePage {
         new TestHelper(driver).waitUntilElementWillBeClickable(dressesTab).click();
         return new DressesPage(driver);
 
+    }
+
+    public SignInPage clickSignOutBtn(){
+        new TestHelper(driver).waitUntilElementWillBeClickable(signOutBtn).click();
+        return new SignInPage(driver);
     }
 
 }

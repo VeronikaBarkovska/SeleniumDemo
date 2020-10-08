@@ -4,19 +4,14 @@ import com.automationpractice.account.AccountCreate;
 import com.automationpractice.info.InfoCreate;
 import com.automationpractice.pages.enums.SortEnum;
 import com.automationpractice.utils.TestHelper;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-
+import org.testng.annotations.BeforeMethod;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
-public class CartTest {
+
+public class CartTest extends BaseTest{
     private MainPage mainPage;
-    private WebDriver driver;
     private InfoCreate infoCreate;
     private CartPage cartPage;
     private SignInPage signInPage;
@@ -31,8 +26,8 @@ public class CartTest {
     Random random = new Random();
 
 
-    @Before
-    public void setup(){
+    @BeforeMethod
+    public void beforeMethod(){
         accountCreate = new AccountCreate()
                 .enterEmail("veronikabark"+random.nextInt()+"@gmail.com")
                 .enterFirstName("Veronika")
@@ -57,11 +52,6 @@ public class CartTest {
                 .enterHomePhone("+380445558888")
                 .build();
         infoCreate = new InfoCreate().enterSortType(SortEnum.PRICELOWESTFIRST);
-        System.setProperty("webdriver.chrome.driver","C:\\Users\\Вероника\\IdeaProjects\\selenium-1\\src\\main\\resources\\chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.navigate().to("http://automationpractice.com/");
-        driver.manage().window().maximize();
     }
     @Test
     public void testFillAllFldinRegistrPage(){
@@ -134,7 +124,7 @@ public class CartTest {
         dressesPage.clickListView();
         dressesPage.scrollToItem();
         dressesPage.selectLSize();
-        //dressesPage.selectSortSearch(SortEnum.PRICELOWESTFIRST);
+        dressesPage.selectSortSearch(SortEnum.PRICELOWESTFIRST);
         dressesPage.clickAddToCartBtn1();
         dressesPage.clickContinueShopping();
         dressesPage.clickAddToCartBtn2();
@@ -244,14 +234,5 @@ public class CartTest {
         String actualResult = paymentCartPage.checkTotalPrice()+ " "+ paymentCartPage.checkSalePrice();
         Assert.assertEquals(expectedResult, actualResult);
     }
-
-
-
-
-    @After
-    public void cleanup(){
-        this.driver.quit();
-    }
-
 
 }

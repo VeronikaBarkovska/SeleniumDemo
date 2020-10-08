@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.annotations.AfterMethod;
 
 
 public class SignInPage {
@@ -22,6 +23,15 @@ public class SignInPage {
     @FindBy(xpath = "//i[@class = 'icon-user left']")
     private WebElement emailCreateBtn;
 
+    @FindBy(xpath = "//input[@id='passwd']")
+    private WebElement passwdFld;
+
+    @FindBy(xpath = "//button[@id='SubmitLogin']")
+    private WebElement signInBtn;
+
+    @FindBy(xpath = "(//div[@class='alert alert-danger'])[1]")
+    private WebElement alertMessageSignIn;
+
     private By FirstNameRegistPageFld = By.xpath("//input[@id='customer_firstname']");
     private By signInLink = By.xpath("//a[@class = 'login']");
     private By contactUsLink = By.id("contact-link");
@@ -34,9 +44,7 @@ public class SignInPage {
     private By tshirtsBtn =By.xpath("//a[@title = 'T-shirts']");
     private By homeBtn = By.xpath("//a[@class = 'home']");
     private By AuthpgBtn = By.xpath("//span[@class = 'navigation_page']");
-    private By passwdFld = By.id("passwd");
     private By forgotPasswdLink = By.xpath("//a[@title = 'Recover your forgotten password']");
-    private By signInBtn = By.xpath("//i[@class = 'icon-lock left']");
     private By newsletterFld = By.id("newsletter-input");
     private By newsletterBtn = By.name("submitNewsletter");
     private By followFacebookBtn = By.xpath("//li[@class = 'facebook']");
@@ -65,10 +73,28 @@ public class SignInPage {
         emailCreateFld.sendKeys(email);
     }
 
+    public void fillEmail(String email){emailFld.sendKeys(email);}
+
+    public void fillPasswd(String passwd){passwdFld.sendKeys(passwd);}
+
+    public void fillAndSubmitEmailPasswd(AccountCreate accountCreate) {
+        fillEmail(accountCreate.getEmail());
+        fillPasswd(accountCreate.getPasswd());
+        new TestHelper(driver).waitUntilElementWillBeClickable(signInBtn).click();
+    }
+
+
     public RegistrationPage submitEmailCrtFld() {
         emailCreateBtn.click();
         return new RegistrationPage(driver);
     }
+
+    public boolean isShownAlertMessage(){
+        new TestHelper(driver).isPageLoad();
+        return alertMessageSignIn.isDisplayed();
+    }
+
+
 
 
 }

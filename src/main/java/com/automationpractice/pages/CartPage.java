@@ -76,6 +76,18 @@ public class CartPage {
     @FindBy(xpath = "//span[@class = 'price special-price']")
     private WebElement newPrice;
 
+    @FindBy(xpath = "(//span[@class='price' and contains(@id,'total_product_price')])[1]")
+    private WebElement totalPriceWomenTab1;
+
+    @FindBy(xpath = "(//span[@class='price' and contains(@id,'total_product_price')])[1]/parent::td/following-sibling::td/div/a")
+    private WebElement deleteWomenTabBtn1;
+
+    @FindBy(xpath = "(//span[@class='price' and contains(@id,'total_product_price')])[2]")
+    private WebElement totalPriceWomenTab2;
+
+    @FindBy(xpath = "(//span[@class='price' and contains(@id,'total_product_price')])[2]/parent::td/following-sibling::td/div/a")
+    private WebElement deleteWomenTabBtn2;
+
 
 
     public CartPage(WebDriver driver){
@@ -170,6 +182,35 @@ public class CartPage {
         new TestHelper(driver).waitUntilElementWillBeClickable(proceedToCheckoutBtn).click();
         return new AddressCartPage(driver);
 
+    }
+
+    public int compareTwoPriceItems(){
+        String totalPriceWomen1 = totalPriceWomenTab1.getText().replace("$","").replace(".00","");
+        String totalPriceWomen2 = totalPriceWomenTab2.getText().replace("$","").replace(".98","");
+        int tP1=Integer.parseInt(totalPriceWomen1);
+        int tP2=Integer.parseInt(totalPriceWomen2);
+        if(tP1 > tP2){
+        return tP1;
+    }
+
+        return tP2;
+    }
+
+    public void deleteCompareTwoPriceItems(){
+        String totalPriceWomen1 = totalPriceWomenTab1.getText().replace("$","").replace(".00","");
+        String totalPriceWomen2 = totalPriceWomenTab2.getText().replace("$","").replace(".98","");
+        int tP1=Integer.parseInt(totalPriceWomen1);
+        int tP2=Integer.parseInt(totalPriceWomen2);
+        if(tP1 > tP2){
+            deleteWomenTabBtn1.click();
+        }
+        deleteWomenTabBtn2.click();
+    }
+
+    public int getFirstTotalPriceWomenTab(){
+        String totalPriceWomen1 = totalPriceWomenTab1.getText().replace("$","").replace(".00","");
+        int tP1=Integer.parseInt(totalPriceWomen1);
+        return tP1;
     }
 
     }

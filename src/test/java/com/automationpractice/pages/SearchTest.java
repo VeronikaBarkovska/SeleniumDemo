@@ -2,17 +2,14 @@ package com.automationpractice.pages;
 
 import com.automationpractice.info.InfoCreate;
 import com.automationpractice.utils.TestHelper;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.BeforeMethod;
 
-import java.util.concurrent.TimeUnit;
 
-public class SearchTest {
+public class SearchTest extends BaseTest{
     private MainPage mainPage;
     private WebDriver driver;
     private InfoCreate infoCreate;
@@ -21,13 +18,9 @@ public class SearchTest {
     private TestHelper testHelper;
 
 
-    @Before
-    public void setup(){
+    @BeforeMethod
+    public void beforeMethod(){
         infoCreate = new InfoCreate().enterSearchText("Blouse");
-        System.setProperty("webdriver.chrome.driver","C:\\Users\\Вероника\\IdeaProjects\\selenium-1\\src\\main\\resources\\chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.navigate().to("http://automationpractice.com/");
     }
 
     @Test
@@ -146,10 +139,5 @@ public class SearchTest {
         Thread.sleep(2000);
         Assert.assertTrue("Verify that cart is empty",cartPage.isEmptyCart());
     }
-    
 
-   @After
-    public void cleanup(){
-        this.driver.quit();
-    }
 }

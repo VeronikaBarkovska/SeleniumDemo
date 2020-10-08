@@ -2,6 +2,7 @@ package com.automationpractice.utils;
 
 import com.automationpractice.pages.CartPage;
 import com.automationpractice.pages.DressesPage;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -19,6 +20,13 @@ public class TestHelper {
 
     public WebElement waitUntilElementWillBeClickable(WebElement element){
     return new WebDriverWait(driver, 10).until(ExpectedConditions.elementToBeClickable(element));
+    }
+
+    public boolean isPageLoad(){
+        return getJsExecutor(driver).executeScript("return document.readyState").equals("complete");
+    }
+    public JavascriptExecutor getJsExecutor(WebDriver driver){
+        return (JavascriptExecutor) driver;
     }
 
 

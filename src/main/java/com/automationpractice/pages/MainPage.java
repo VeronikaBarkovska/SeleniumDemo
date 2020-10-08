@@ -30,6 +30,9 @@ private WebElement addToCartBtn1;
 @FindBy(xpath = "//a[@class='btn btn-default button button-medium']")
 private WebElement proceedToCheckoutBtn;
 
+@FindBy(xpath = "//a[@title = 'Women']")
+private WebElement womenTab;
+
 
 public MainPage(WebDriver driver){
     this.driver = driver;
@@ -74,5 +77,10 @@ public SignInPage openSignInPage(WebDriver driver) {
     public CartPage clickProceedToCheckout() {
         new TestHelper(driver).waitUntilElementWillBeClickable(proceedToCheckoutBtn).click();
         return new CartPage(driver);
+    }
+
+    public WomenPage clickWomenTab(){
+    womenTab.click();
+    return new WomenPage(driver);
     }
 }
